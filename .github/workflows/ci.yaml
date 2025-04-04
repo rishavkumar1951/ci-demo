@@ -5,7 +5,7 @@ on:
         branches:
             - master
     pull_request:
-        
+
 jobs:
     linting:
         runs-on: ${{ matrix.os }}
@@ -31,3 +31,21 @@ jobs:
             - name: Run flake8
               run: |
                   flake8 app.py
+
+
+    testing:
+        runs-on: ubuntu-latest
+
+        steps:
+
+            - name: code checkout
+              uses: actions/checkout@v3
+
+            - name: setup python
+              uses: actions/setup-python@v2
+              with: 
+                python-version: "3.9"
+
+            - name: run unit test
+              run: |
+                python -m unittest discover
